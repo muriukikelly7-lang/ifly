@@ -50,9 +50,9 @@ if (footerSlot) {
 
 const whatsappLink = document.createElement("a");
 whatsappLink.className = "whatsapp-float";
-whatsappLink.href = "https://wa.me/254736989645";
+whatsappLink.href = "https://wa.me/254736989645?text=Hello%20iFly%2C%20I%20need%20help%20with%20booking.";
 whatsappLink.target = "_blank";
 whatsappLink.rel = "noreferrer";
-whatsappLink.setAttribute("aria-label", "Help me with booking on WhatsApp");
-whatsappLink.innerHTML = '<span class="wa-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.1 11.7a8.3 8.3 0 0 1-12.3 7.2L4 20l1.1-3.6a8.3 8.3 0 1 1 15-4.7Z"></path><path d="M8.1 7.8c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.8 1.8c.1.2.1.4-.1.6l-.6.7c-.2.2-.2.4 0 .6.4.7 1.2 1.5 2.1 1.9.2.1.4.1.6-.1l.8-.9c.2-.2.4-.2.7-.1l1.7.8c.3.1.4.3.4.5 0 .3-.2 1.1-.7 1.5-.5.5-1.2.7-1.9.6-1.1-.2-2.4-.8-3.8-2.1-1.2-1.1-2-2.5-2.2-3.5-.2-.8.1-1.6.5-2.2Z"></path></svg></span><span>Help me with booking</span>';
+whatsappLink.setAttribute("aria-label", "Message iFly on WhatsApp");
+whatsappLink.innerHTML = '<span class="wa-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.1 11.7a8.3 8.3 0 0 1-12.3 7.2L4 20l1.1-3.6a8.3 8.3 0 1 1 15-4.7Z"></path><path d="M8.1 7.8c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.8 1.8c.1.2.1.4-.1.6l-.6.7c-.2.2-.2.4 0 .6.4.7 1.2 1.5 2.1 1.9.2.1.4.1.6-.1l.8-.9c.2-.2.4-.2.7-.1l1.7.8c.3.1.4.3.4.5 0 .3-.2 1.1-.7 1.5-.5.5-1.2.7-1.9.6-1.1-.2-2.4-.8-3.8-2.1-1.2-1.1-2-2.5-2.2-3.5-.2-.8.1-1.6.5-2.2Z"></path></svg></span><span>Message us</span>';
 document.body.append(whatsappLink);
