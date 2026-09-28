@@ -267,36 +267,39 @@ h1, h2, h3, p { margin-top: 0; }
   .details-summary { margin-left: 0; }
 }
 @media (max-width:680px) {
-  .utility-bar, .utility-inner { min-height: 36px; }
-  .utility-inner { width: 88%; }
-  .utility-link { gap: 6px; font-size: 10px; }
+  .utility-bar { min-height: 42px; }
+  .utility-inner { width: 100%; min-height: 42px; padding: 0 18px; }
+  .utility-link { gap: 8px; font-size: 11px; }
   .utility-link svg { width: 14px; height: 14px; }
-  .site-header { height: 74px; padding: 0 6%; }
-  .brand { width: 122px; }
-  .main-nav { position: absolute; top: 74px; left: 0; right: 0; display: none; margin: 0; padding: 9px 22px 20px; flex-direction: column; align-items: stretch; gap: 0; background: var(--paper); box-shadow: 0 14px 22px rgba(25,27,34,.12); }
+
+  .site-header { height: auto; min-height: 76px; padding: 14px 18px 12px; }
+  .brand { width: 150px; }
+  .main-nav { position: absolute; top: 75px; left: 0; right: 0; display: none; flex-direction: column; align-items: stretch; gap: 0; margin: 0; padding: 10px 18px 18px; background: var(--paper); box-shadow: 0 14px 22px rgba(25,27,34,.12); }
   .main-nav.open { display: flex; }
-  .main-nav a { padding: 14px 0; border-top: 1px solid var(--rule); }
-  .header-actions { gap: 9px; margin: 0 0 0 auto; }
+  .main-nav a { padding: 14px 0; border-top: 1px solid var(--rule); font-size: 10px; letter-spacing: 1px; }
+  .header-actions { gap: 10px; margin-left: 10px; }
   .search-link { width: 30px; }
-  .header-link { min-height: 37px; padding: 0 13px; gap: 6px; font-size: 8px; letter-spacing: .6px; }
-  .menu-toggle { width: 32px; height: 34px; margin-left: 10px; padding: 8px 4px; display: flex; flex: 0 0 auto; flex-direction: column; justify-content: center; gap: 6px; border: 0; background: transparent; }
-  .menu-toggle span { height: 1px; width: 22px; background: var(--ink); }
-  .hero { min-height: 414px; height: 414px; max-height: none; }
-  .hero-photo { background-position: 59% center; }
-  .hero-shade { background: linear-gradient(90deg,rgba(5,34,44,.75),rgba(5,34,44,.15)),linear-gradient(0deg,rgba(5,32,41,.43),transparent 45%); }
-  .hero-copy { left: 50%; top: calc(50% - 9px); width: min(380px,calc(100% - 20px)); height: min(406px,calc(100% - 10px)); transform: translate(-50%,-50%); }
-  .hero-welcome { top: 39px; width: 132px; height: 39px; border-right-width: 6px; font-size: 12px; }
-  .hero-card-content { padding: 101px 25px 20px; }
-  .hero h1 { font-size: 32px; }
-  .hero-alert { margin: 21px 0 20px; padding: 0 4px; }
-  .hero-alert p { font-size: 18px; line-height: 1.55; }
+  .header-link { min-height: 36px; padding: 0 18px; gap: 6px; font-size: 9px; letter-spacing: .5px; border-radius: 999px; }
+  .menu-toggle { width: 38px; height: 38px; margin-left: 4px; padding: 0; display: flex; flex: 0 0 auto; align-items: center; justify-content: center; border-radius: 50%; background: var(--sun); }
+  .menu-toggle span { width: 18px; height: 2px; background: var(--white); }
+
+  .hero { min-height: 470px; height: 470px; max-height: none; }
+  .hero-photo { background-position: 58% center; }
+  .hero-shade { background: linear-gradient(90deg,rgba(5,34,44,.44),rgba(5,34,44,.2) 52%,rgba(5,34,44,.08)); }
+  .hero-copy { left: 18px; right: 18px; top: 42px; width: auto; min-height: 210px; height: auto; transform: none; border-radius: 18px; }
+  .hero-welcome { top: 24px; width: 120px; height: 34px; border-right-width: 5px; font-size: 11px; }
+  .hero-card-content { padding: 64px 18px 18px; }
+  .hero h1 { font-size: 30px; line-height: 1.05; }
+  .hero-alert { margin: 16px 0 18px; }
+  .hero-alert p { font-size: 13px; line-height: 1.45; }
   .hero-intro { font-size: 13px; }
   .hero-note { left: 8%; bottom: 24px; font-size: 9px; }
   .hero-index { right: 8%; bottom: 23px; }
-  .booking-wrap { width: 100%; height: 600px; margin: -12px 0 0; padding-top: 0; }
-  .booking-tab { top: -36px; left: 50%; width: 190px; height: 36px; font-size: 11px; }
+
+  .booking-wrap { width: 100%; height: 520px; margin: -18px 0 0; padding-top: 0; }
+  .booking-tab { top: -28px; left: 50%; width: 170px; height: 30px; font-size: 10px; }
   .booking-panel { width: calc(100% - 20px); min-height: 0; margin: 0 10px; padding: 8px 10px; box-shadow: none; }
-  .booking-topline { height: 20px; margin-bottom: 4px; }
+  .booking-topline { height: 18px; margin-bottom: 4px; }
   .booking-fields { grid-template-columns: minmax(0,1fr) 32px minmax(0,1fr) minmax(0,1fr); grid-template-rows: 48px 48px 38px; gap: 6px 4px; }
   .booking-fields > label:nth-of-type(1) { grid-column: 1; grid-row: 1; }
   .booking-fields > label:nth-of-type(2) { grid-column: 3/5; grid-row: 1; }
@@ -306,17 +309,18 @@ h1, h2, h3, p { margin-top: 0; }
   .field { min-height: 0; padding: 4px 7px; }
   .swap-button { top: 7px; left: 32%; width: 30px; height: 30px; font-size: 17px; }
   .search-button { grid-column: 3/5; grid-row: 3; justify-self: stretch; width: auto; min-height: 38px; font-size: 15px; }
+
   .safety-strip { width: 88%; align-items: flex-start; flex-wrap: wrap; gap: 10px; padding: 19px 0; }
   .safety-icon { margin-top: 2px; }
   .safety-strip p { flex: 1 1 calc(100% - 40px); font-size: 10px; }
   .safety-more { margin-left: 35px; }
   .destination-section, .experiences-section, .help-section { width: 88%; }
-  .destination-section { padding: 24px 0; }
+  .destination-section { padding: 30px 0 24px; }
   .section-heading { display: block; margin-bottom: 16px; }
   .section-heading h2 { font-size: 46px; }
   .section-summary { display: none; }
   .destination-feature { display: flex; flex-direction: column; }
-  .destination-image { min-height: 160px; }
+  .destination-image { min-height: 180px; }
   .destination-copy { padding: 16px; }
   .destination-copy > p { margin: 9px 0; font-size: 10px; }
   .included-list { gap: 5px 10px; margin-bottom: 14px; }

@@ -40,7 +40,7 @@ if (footerSlot) {
     <footer class="site-footer">
       <div class="footer-main">
         <div class="footer-brand-block"><a class="brand footer-brand" href="index.html" aria-label="iFly home"><img class="brand-logo" src="https://ifly.co.ke/wp-content/uploads/2023/02/ifly-logo-white-transpernt.png" alt="iFly Airlines"></a><p>Fly with us for business or leisure, our priority is your safety and comfort.</p></div>
-        <div class="footer-column"><h2>Contact</h2><p>HQ: Aerlink Building<br>Wilson Airport, Nairobi</p><a href="tel:+254740100100">Hotline: 0740 100 100</a><a href="tel:+254111051990">Hotline: 0111 051 990</a><a href="mailto:reservations@ifly.co.ke">Email: reservations@ifly.co.ke</a></div>
+        <div class="footer-column"><h2>Contact</h2><p>HQ: Aerlink Building<br>Wilson Airport, Nairobi</p><a href="tel:+254736989645">Hotline: 0736 989 645</a><a href="tel:+254111051990">Hotline: 0111 051 990</a><a href="mailto:reservations@ifly.co.ke">Email: reservations@ifly.co.ke</a></div>
         <div class="footer-column"><h2>Get to know us</h2><a href="about.html">About us</a><a href="schedule.html">Flight timetable</a><a href="https://ifly.co.ke/csr/">CSR</a><a href="https://ifly.co.ke/about-us/our-fleet/">Fleet</a></div>
         <div class="footer-column footer-social-column"><h2>Connect with us</h2><div class="social-links"><a href="https://web.facebook.com/FlyIFlyAir/?locale=eo_EO&_rdc=1&_rdr" aria-label="Facebook">f</a><a href="https://twitter.com/i_FlyAir" aria-label="Twitter">x</a><a href="https://www.youtube.com/@iflyair5484" aria-label="YouTube">▶</a><a href="https://www.instagram.com/ifly_air/?hl=en" aria-label="Instagram">ig</a></div></div>
       </div>
@@ -50,7 +50,7 @@ if (footerSlot) {
 
 const whatsappLink = document.createElement("a");
 whatsappLink.className = "whatsapp-float";
-whatsappLink.href = "https://wa.me/254740100100";
+whatsappLink.href = "https://wa.me/254736989645";
 whatsappLink.target = "_blank";
 whatsappLink.rel = "noreferrer";
 whatsappLink.setAttribute("aria-label", "Chat with iFly on WhatsApp");
