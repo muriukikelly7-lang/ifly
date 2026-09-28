@@ -12,12 +12,12 @@ const toast = document.querySelector("#toast");
 
 const routeFares = {
   "Nairobi|Wajir": 12000,
-  "Nairobi|Mandera": 13200,
-  "Nairobi|Juba": 25000,
-  "Nairobi|Mogadishu": 21000,
   "Wajir|Nairobi": 12000,
+  "Nairobi|Mandera": 13200,
   "Mandera|Nairobi": 13200,
+  "Nairobi|Juba": 25000,
   "Juba|Nairobi": 25000,
+  "Nairobi|Mogadishu": 21000,
   "Mogadishu|Nairobi": 21000
 };
 
@@ -45,8 +45,13 @@ function formatKsh(amount) {
 function getRouteFare(from, to) {
   const normalizedFrom = normalizeCityName(from);
   const normalizedTo = normalizeCityName(to);
-  const routeKey = [normalizedFrom, normalizedTo].sort().join("|");
-  return routeFares[routeKey] || 0;
+  const directKey = `${normalizedFrom}|${normalizedTo}`;
+  const reverseKey = `${normalizedTo}|${normalizedFrom}`;
+
+  if (routeFares[directKey]) return routeFares[directKey];
+  if (routeFares[reverseKey]) return routeFares[reverseKey];
+
+  return 0;
 }
 
 function getEstimatedFare(from, to, passengerValue) {
