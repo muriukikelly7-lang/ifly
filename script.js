@@ -10,8 +10,58 @@ const menuToggle = document.querySelector(".menu-toggle");
 const mainNav = document.querySelector("#main-nav");
 const toast = document.querySelector("#toast");
 
+const routeFares = {
+  "Nairobi|Wajir": 12000,
+  "Nairobi|Mandera": 13200,
+  "Nairobi|Juba": 25000,
+  "Nairobi|Mogadishu": 21000,
+  "Wajir|Nairobi": 12000,
+  "Mandera|Nairobi": 13200,
+  "Juba|Nairobi": 25000,
+  "Mogadishu|Nairobi": 21000
+};
+
 const today = new Date();
 const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+
+function normalizeCityName(city) {
+  if (!city) return "";
+  return city.replace(/\s*\([^)]*\)/g, "").trim();
+}
+
+function parsePassengerCount(passengerValue) {
+  const match = String(passengerValue || "1 passenger").match(/\d+/);
+  return match ? Number(match[0]) : 1;
+}
+
+function formatKsh(amount) {
+  return new Intl.NumberFormat("en-KE", {
+    style: "currency",
+    currency: "KES",
+    maximumFractionDigits: 0
+  }).format(amount);
+}
+
+function getRouteFare(from, to) {
+  const normalizedFrom = normalizeCityName(from);
+  const normalizedTo = normalizeCityName(to);
+  const routeKey = [normalizedFrom, normalizedTo].sort().join("|");
+  return routeFares[routeKey] || 0;
+}
+
+function getEstimatedFare(from, to, passengerValue) {
+  const passengerCount = parsePassengerCount(passengerValue);
+  const routeFare = getRouteFare(from, to);
+  const totalFare = routeFare ? routeFare * passengerCount : 0;
+
+  return {
+    passengerCount,
+    routeFare,
+    totalFare,
+    formattedFare: routeFare ? formatKsh(routeFare) : "Contact for quote",
+    formattedTotalFare: routeFare ? formatKsh(totalFare) : "Contact for quote"
+  };
+}
 
 if (departureInput) departureInput.min = localDate;
 if (returnInput) returnInput.min = localDate;
@@ -54,13 +104,15 @@ flightForm?.addEventListener("submit", (event) => {
   const tripValue = tripControl ? tripControl.value : "roundtrip";
   const departValue = departureInput ? departureInput.value || "TBD" : "TBD";
   const passengerValue = document.querySelector('select[name="passengers"]')?.value || "1 passenger";
+  const estimatedFare = getEstimatedFare(fromSelect.value, toSelect.value, passengerValue);
 
   const params = new URLSearchParams({
     from: fromSelect.value,
     to: toSelect.value,
     trip: tripValue,
     depart: departValue,
-    passengers: passengerValue
+    passengers: passengerValue,
+    fare: String(estimatedFare.totalFare)
   });
 
   window.location.href = `booking-details.html?${params.toString()}`;
@@ -95,10 +147,16 @@ if (bookingDetailForm) {
   const trip = params.get("trip") || "roundtrip";
   const depart = params.get("depart") || "TBD";
   const passengers = params.get("passengers") || "1 passenger";
+  const fareValue = Number(params.get("fare") || 0);
+  const fareEstimate = getEstimatedFare(from, to, passengers);
+  const finalFare = fareValue > 0 ? fareValue : fareEstimate.totalFare;
 
-  if (summaryRoute) summaryRoute.textContent = `${from} → ${to}`;
+  const summaryFare = document.querySelector("#summary-fare");
+
+  if (summaryRoute) summaryRoute.textContent = `${normalizeCityName(from)} → ${normalizeCityName(to)}`;
   if (summaryDepart) summaryDepart.textContent = trip === "oneway" ? `${depart} (one-way)` : `${depart}`;
   if (summaryPassengers) summaryPassengers.textContent = passengers;
+  if (summaryFare) summaryFare.textContent = finalFare > 0 ? `${formatKsh(finalFare)} total` : "Contact for quote";
 
   bookingDetailForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -115,15 +173,18 @@ if (bookingDetailForm) {
       return;
     }
 
+    const totalFareText = finalFare > 0 ? `Estimated fare: ${formatKsh(finalFare)}` : "Estimated fare: Please contact reservations";
+
     const whatsappMessage = [
       "Hello iFly, I would like to confirm my booking.",
       `Full name: ${fullName}`,
       `ID/Passport: ${idNumber}`,
       `Email: ${email}`,
       `Phone: ${phone}`,
-      `Trip: ${from} to ${to}`,
+      `Trip: ${normalizeCityName(from)} to ${normalizeCityName(to)}`,
       `Departure: ${depart}`,
       `Passengers: ${passengers}`,
+      totalFareText,
       notes ? `Notes: ${notes}` : "",
     ].filter(Boolean).join("\n");
 

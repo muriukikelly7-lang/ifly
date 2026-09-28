@@ -411,11 +411,12 @@ h1, h2, h3, p { margin-top: 0; }
 .community-section h2 { margin-bottom: 0; font-size: clamp(45px,5vw,65px); }
 .community-section > div:last-child > p { margin-bottom: 21px; }
 .destination-list { padding: 90px 0 105px; }
-.route-cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 22px; margin-top: 38px; }
+.route-cards { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 22px; margin-top: 38px; }
 .route-card { background: var(--surface); }
 .route-card-photo { height: 220px; background-position: center; background-size: cover; }
 .route-wajir .route-card-photo { background-image: url("https://ifly.co.ke/wp-content/uploads/2023/02/DJI_0043-768x432.jpg"); }
 .route-mandera .route-card-photo { background-image: url("https://ifly.co.ke/wp-content/uploads/2023/02/DWvIvw2WkAIckuN-768x432.jpg"); }
+.route-juba .route-card-photo { background-image: linear-gradient(135deg, rgba(29,120,164,.78), rgba(17,50,89,.82)), url("https://ifly.co.ke/wp-content/uploads/2023/02/IMG_0850.jpg"); }
 .route-mogadishu .route-card-photo { background-image: url("https://ifly.co.ke/wp-content/uploads/2023/02/EtPOnhTXYAE3iWL-1-768x432.jpg"); }
 .route-card-body { padding: 25px 23px 27px; }
 .route-card h3 { margin: 10px 0 8px; font: 600 42px/.92 var(--display); text-transform: uppercase; }
