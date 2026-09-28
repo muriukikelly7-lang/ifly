@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#312783">
+    <title>iFly Booking Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <script src="site-shell.js" defer></script>
+  </head>
+  <body>
+    <div id="site-header"></div>
+
+    <main class="details-page">
+      <section class="details-hero">
+        <div class="details-shell">
+          <div class="details-copy">
+            <p class="eyebrow dark-eyebrow">BOOKING</p>
+            <h1>Complete your details</h1>
+            <p class="details-intro">Add your traveler information below. Once confirmed, we’ll take you to WhatsApp to finalize your trip.</p>
+          </div>
+          <div class="details-summary" id="checkout-summary">
+            <p class="summary-label">Trip summary</p>
+            <ul>
+              <li><span>Route</span><strong id="summary-route">—</strong></li>
+              <li><span>Departure</span><strong id="summary-depart">—</strong></li>
+              <li><span>Passengers</span><strong id="summary-passengers">—</strong></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="details-shell details-form-wrap">
+        <form class="details-form" id="booking-details-form" novalidate>
+          <div class="field-row">
+            <label>
+              <span>Full name</span>
+              <input type="text" name="fullName" placeholder="e.g. Jane Doe" required>
+            </label>
+            <label>
+              <span>ID / passport number</span>
+              <input type="text" name="idNumber" placeholder="e.g. 12345678" required>
+            </label>
+          </div>
+
+          <div class="field-row">
+            <label>
+              <span>Email address</span>
+              <input type="email" name="email" placeholder="you@example.com" required>
+            </label>
+            <label>
+              <span>Phone number</span>
+              <input type="tel" name="phone" placeholder="e.g. +2547xx xxx xxx" required>
+            </label>
+          </div>
+
+          <div class="field-row">
+            <label class="single-wide">
+              <span>Travel notes</span>
+              <textarea name="notes" rows="4" placeholder="Any special requests or notes"></textarea>
+            </label>
+          </div>
+
+          <div class="details-actions">
+            <button type="submit" class="primary-button">Confirm booking</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+  </body>
+</html>

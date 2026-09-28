@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#312783">
+    <meta name="description" content="Fly with iFly Airlines. Find flights across Kenya and beyond, and discover the places waiting at the other end.">
+    <title>iFly Airlines | Across Kenya. Beyond.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="utility-bar"><div class="utility-inner">
+      <a class="utility-link" href="mailto:reservations@ifly.co.ke"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="m4 7 8 6 8-6"></path></svg>Contacts</a>
+      <a class="utility-link" href="mailto:reservations@ifly.co.ke?subject=Agent%20access" title="Email reservations about agent access"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v16h-6M10 16l4-4-4-4M14 12H3"></path></svg>Agent Login</a>
+    </div></div>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="iFly home"><img class="brand-logo" src="https://ifly.co.ke/wp-content/uploads/2023/02/iFly-logo.png" alt="iFly Airlines"></a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="main-nav"><span></span><span></span></button>
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+        <a href="destinations.html">Fly to</a><a href="travel.html">Our services</a><a href="about.html">About us</a><a href="travel.html">Travel information</a>
+      </nav>
+      <div class="header-actions"><a class="search-link" href="#book" aria-label="Search flights"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"></circle><path d="m16 16 4.5 4.5"></path></svg></a><a class="header-link" href="#book">Book Flight <span aria-hidden="true">↗</span></a></div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-photo" role="img" aria-label="iFly aircraft above the clouds"></div><div class="hero-shade"></div>
+        <div class="hero-copy"><span class="hero-welcome">Welcome</span><div class="hero-card-content"><div class="hero-headline"><span class="hero-plane" aria-hidden="true">✈</span><h1 id="hero-title">Beware of<br>Fraudsters!</h1></div><div class="hero-alert"><p>Only trust our official number <a href="tel:+254740100100">0740 100 100</a> and our official Paybill <strong>555816</strong>. Do not send money to any other number.</p></div><a class="hero-book" href="wajir.html">Book Now <span aria-hidden="true">➜</span></a></div></div>
+        <div class="hero-note"><span class="note-dot"></span> Proudly connecting East Africa</div><span class="hero-index" aria-hidden="true">01 <i></i> 04</span>
+      </section>
+
+      <section class="booking-wrap" id="book" aria-label="Find a flight">
+        <div class="booking-tab" aria-hidden="true"><span>✈</span> Book Flight</div>
+        <form class="booking-panel" id="flight-search">
+          <h2 class="visually-hidden">Book a flight</h2>
+          <div class="booking-topline">
+            <label class="trip-select-label"><span class="visually-hidden">Trip type</span><select name="trip" aria-label="Trip type"><option value="roundtrip" selected>Roundtrip</option><option value="oneway">One-way</option></select></label>
+          </div>
+          <div class="booking-fields">
+            <label class="field field-place"><span>From</span><select name="from" required aria-label="Departure city"><option value="Nairobi (WIL)" selected>Nairobi (WIL)</option><option value="Mombasa (MBA)">Mombasa (MBA)</option><option value="Wajir (WJR)">Wajir (WJR)</option><option value="Lamu (LAU)">Lamu (LAU)</option><option value="Kisumu (KIS)">Kisumu (KIS)</option><option value="Mandera (NDE)">Mandera (NDE)</option><option value="Mogadishu (MGQ)">Mogadishu (MGQ)</option><option value="Juba (JUB)">Juba (JUB)</option></select></label>
+            <button class="swap-button" type="button" aria-label="Swap departure and arrival">⇄</button>
+            <label class="field field-place"><span>To</span><select name="to" required aria-label="Arrival city"><option value="" disabled selected>Choose destination</option><option value="Nairobi (WIL)">Nairobi (WIL)</option><option value="Mombasa (MBA)">Mombasa (MBA)</option><option value="Wajir (WJR)">Wajir (WJR)</option><option value="Lamu (LAU)">Lamu (LAU)</option><option value="Kisumu (KIS)">Kisumu (KIS)</option><option value="Mandera (NDE)">Mandera (NDE)</option><option value="Mogadishu (MGQ)">Mogadishu (MGQ)</option><option value="Juba (JUB)">Juba (JUB)</option></select></label>
+            <label class="field field-date"><span>Depart</span><input name="depart" type="date" required aria-label="Departure date"></label>
+            <label class="field field-date return-field"><span>Return</span><input name="return" type="date" aria-label="Return date"></label>
+            <label class="field field-guests"><span>Passengers</span><select name="passengers" aria-label="Passengers"><option>1 passenger</option><option>2 passengers</option><option>3 passengers</option><option>4 passengers</option><option>5 passengers</option><option>6 passengers</option></select></label>
+            <button class="search-button" type="submit">Find flights <span aria-hidden="true">→</span></button>
+          </div><p class="booking-message" id="booking-message" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="destination-section" id="destinations">
+        <div class="section-heading"><div><p class="eyebrow dark-eyebrow">DESTINATIONS</p><h2>Discover <em>Wajir.</em></h2></div><p class="section-summary">A wide-open sky, warm welcomes and a little more time to yourself. Your next story starts up north.</p></div>
+        <article class="destination-feature"><div class="destination-image" role="img" aria-label="iFly Fly and Stay package for Wajir"></div><div class="destination-copy"><span class="feature-kicker">FLY AND STAY PACKAGE ON FULL BOARD</span><p>Take the easy way to Wajir with flight tickets, hotel accommodation, conference facilities and local excursions.</p><ul class="included-list"><li>Flight tickets</li><li>Hotel accommodation</li><li>Conference facilities</li><li>Excursions</li></ul><a class="round-link" href="wajir.html">Discover What Awaits <span aria-hidden="true">↗</span></a></div></article>
+      </section>
+
+      <section class="experiences-section" id="experiences">
+        <div class="experience-top"><h2>Explore <em>iFly</em></h2></div>
+        <div class="experience-grid">
+          <a class="experience-item fleet-item" href="https://ifly.co.ke/about-us/our-fleet/">
+            <div class="experience-card-copy">
+              <h3>Our fleet</h3>
+              <span class="experience-action">View more <span aria-hidden="true">→</span></span>
+            </div>
+            <div class="experience-photo fleet-photo" role="img" aria-label="iFly aircraft"></div>
+          </a>
+          <a class="experience-item team-item" href="https://ifly.co.ke/about-us/meet-the-crew/">
+            <div class="experience-card-copy">
+              <h3>Meet Our Team</h3>
+              <span class="experience-action">Learn more <span aria-hidden="true">→</span></span>
+            </div>
+            <div class="experience-photo team-photo" role="img" aria-label="iFly crew"></div>
+          </a>
+        </div>
+      </section>
+
+      <section class="news-section" id="news"><div class="news-header"><div><p class="eyebrow">FROM OUR WORLD</p><h2>What's <em>new.</em></h2></div><a href="#travel-help" class="text-link light-link">All stories <span aria-hidden="true">↗</span></a></div>
+        <div class="news-grid"><article class="news-card news-juba"><div class="news-image" role="img" aria-label="iFly Juba route update"></div><div class="news-card-copy"><span class="news-tag">ROUTE UPDATE</span><h3>Juba is back.</h3><p>Our flights to South Sudan have returned. It’s good to be connected again.</p><a href="https://ifly.co.ke/ifly-destinations/juba/">Book this route <span aria-hidden="true">↗</span></a></div></article>
+          <article class="news-card news-community"><div class="community-image" role="img" aria-label="iFly community relief initiative"></div><div class="news-card-copy"><span class="news-tag">COMMUNITY</span><h3>Here for each other.</h3><p>We’re backing a relief drive to support families facing drought and food insecurity.</p><a href="https://ifly.co.ke/csr/">Our community work <span aria-hidden="true">↗</span></a></div></article></div>
+      </section>
+
+      <section class="help-section" id="travel-help"><div class="help-heading"><p class="eyebrow dark-eyebrow">BEFORE YOU FLY</p><h2>Help and<br><em>contact.</em></h2></div><div class="help-links"><a href="travel.html#baggage"><span>01</span><strong>Baggage policy</strong><i aria-hidden="true">↗</i></a><a href="travel.html#dangerous-goods"><span>02</span><strong>Dangerous goods</strong><i aria-hidden="true">↗</i></a><a href="travel.html#faqs"><span>03</span><strong>FAQs</strong><i aria-hidden="true">↗</i></a><a href="travel.html#ticket-policies"><span>04</span><strong>Ticket policies</strong><i aria-hidden="true">↗</i></a></div></section>
+    </main>
+
+    <footer class="site-footer"><div class="footer-main"><div class="footer-brand-block"><a class="brand footer-brand" href="#top" aria-label="iFly home"><img class="brand-logo" src="https://ifly.co.ke/wp-content/uploads/2023/02/ifly-logo-white-transpernt.png" alt="iFly Airlines"></a><p>Fly with us for business or leisure, our priority is your safety and comfort.</p></div><div class="footer-column"><h2>Contact</h2><p>HQ: Aerlink Building<br>Wilson Airport, Nairobi</p><a href="tel:+254740100100">Hotline: 0740 100 100</a><a href="tel:+254111051990">Hotline: 0111 051 990</a><a href="mailto:reservations@ifly.co.ke">Email: reservations@ifly.co.ke</a></div><div class="footer-column"><h2>Get to know us</h2><a href="about.html">About us</a><a href="schedule.html">Flight timetable</a><a href="https://ifly.co.ke/csr/">CSR</a><a href="https://ifly.co.ke/about-us/our-fleet/">Fleet</a></div><div class="footer-column footer-social-column"><h2>Connect with us</h2><div class="social-links"><a href="https://web.facebook.com/FlyIFlyAir/?locale=eo_EO&_rdc=1&_rdr" aria-label="Facebook">f</a><a href="https://twitter.com/i_FlyAir" aria-label="Twitter">x</a><a href="https://www.youtube.com/@iflyair5484" aria-label="YouTube">▶</a><a href="https://www.instagram.com/ifly_air/?hl=en" aria-label="Instagram">ig</a></div></div></div><div class="footer-bottom" id="footer"><span>Privacy Policy - iFly © 2026 - All Rights Reserved.</span><span>Powered by <a href="https://ifly.co.ke/">iFly Air Limited.</a></span></div></footer>
+    <a class="whatsapp-float" href="https://wa.me/254740100100" target="_blank" rel="noreferrer" aria-label="Chat with iFly on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.1 11.7a8.3 8.3 0 0 1-12.3 7.2L4 20l1.1-3.6a8.3 8.3 0 1 1 15-4.7Z"></path><path d="M8.1 7.8c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.8 1.8c.1.2.1.4-.1.6l-.6.7c-.2.2-.2.4 0 .6.4.7 1.2 1.5 2.1 1.9.2.1.4.1.6-.1l.8-.9c.2-.2.4-.2.7-.1l1.7.8c.3.1.4.3.4.5 0 .3-.2 1.1-.7 1.5-.5.5-1.2.7-1.9.6-1.1-.2-2.4-.8-3.8-2.1-1.2-1.1-2-2.5-2.2-3.5-.2-.8.1-1.6.5-2.2Z"></path></svg></a>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
