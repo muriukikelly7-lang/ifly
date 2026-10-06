@@ -120,13 +120,28 @@ h1, h2, h3, p { margin-top: 0; }
 .safety-strip p a { color: var(--ocean); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
 .safety-more { white-space: nowrap; color: var(--ocean); font-size: 9px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; }
 .safety-more span { margin-left: 5px; font-size: 13px; }
-.destination-section, .experiences-section, .help-section { width: min(1120px,84%); margin: 0 auto; }
+.destination-section, .experiences-section, .help-section, .fare-showcase { width: min(1120px,84%); margin: 0 auto; }
 .destination-section { padding: 42px 0; }
+.fare-showcase { padding: 10px 0 18px; }
 .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 18px; }
 .dark-eyebrow { color: var(--ocean); }
 .section-heading h2, .experience-top h2, .help-heading h2 { margin: 0; font: 600 clamp(45px,5.8vw,76px)/.86 var(--display); text-transform: uppercase; }
 .section-heading h2 em, .experience-top h2 em, .help-heading h2 em { color: var(--sun); }
 .section-summary { max-width: 290px; margin: 0 2% 2px 0; color: var(--text-muted); font-size: 12px; line-height: 1.75; }
+.fare-price-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 18px; }
+.fare-price-item { display: flex; flex-direction: column; gap: 10px; padding: 22px 16px; background: var(--surface); border: 1px solid var(--rule); }
+.fare-destination { font-size: 8px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--text-soft); }
+.fare-amount { font: 600 clamp(24px,2.6vw,36px)/1 var(--display); color: var(--ink); }
+.fare-price-item small { color: var(--text-muted); font-size: 10px; }
+@media (max-width: 980px) {
+  .fare-price-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 560px) {
+  .fare-price-grid { grid-template-columns: 1fr; }
+  .fare-showcase .section-heading { display: block; margin-bottom: 14px; }
+  .fare-showcase .section-heading h2 { font-size: 38px; }
+  .fare-showcase .text-link { margin-top: 10px; }
+}
 .destination-feature { min-height: 268px; display: grid; grid-template-columns: 1.32fr .68fr; position: relative; overflow: hidden; background: var(--surface); border-radius: 0; }
 .destination-image { background: url("https://ifly.co.ke/wp-content/uploads/2026/03/Fly-and-Stay-Web-banner-scaled.png") center 54%/cover; min-height: 268px; }
 .destination-copy { padding: 18px 18px 16px 18px; align-self: center; }
@@ -415,6 +430,7 @@ h1, h2, h3, p { margin-top: 0; }
 .route-card { background: var(--surface); }
 .route-card-photo { height: 220px; background-position: center; background-size: cover; }
 .route-wajir .route-card-photo { background-image: url("https://ifly.co.ke/wp-content/uploads/2023/02/DJI_0043-768x432.jpg"); }
+.route-lamu .route-card-photo { background-image: linear-gradient(135deg, rgba(16,77,93,.52), rgba(16,77,93,.24)), url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"); }
 .route-mandera .route-card-photo { background-image: url("https://ifly.co.ke/wp-content/uploads/2023/02/DWvIvw2WkAIckuN-768x432.jpg"); }
 .route-juba .route-card-photo { background-image: linear-gradient(135deg, rgba(29,120,164,.78), rgba(17,50,89,.82)), url("https://ifly.co.ke/wp-content/uploads/2023/02/IMG_0850.jpg"); }
 .route-mogadishu .route-card-photo { background-image: url("https://ifly.co.ke/wp-content/uploads/2023/02/EtPOnhTXYAE3iWL-1-768x432.jpg"); }
