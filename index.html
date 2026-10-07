@@ -49,6 +49,11 @@
             <label class="field field-guests"><span>Passengers</span><select name="passengers" aria-label="Passengers"><option>1 passenger</option><option>2 passengers</option><option>3 passengers</option><option>4 passengers</option><option>5 passengers</option><option>6 passengers</option></select></label>
             <button class="search-button" type="submit">Find flights <span aria-hidden="true">→</span></button>
           </div><p class="booking-message" id="booking-message" aria-live="polite"></p>
+          <div class="fare-estimate" aria-live="polite" aria-atomic="true">
+            <span class="fare-estimate-label">Estimated fare</span>
+            <strong id="fare-estimate-total">Choose a destination</strong>
+            <span id="fare-estimate-breakdown">Fare estimate updates with your trip type and passenger count.</span>
+          </div>
           <section class="seat-selection" aria-labelledby="seat-selection-title">
             <div class="seat-selection-heading">
               <div>

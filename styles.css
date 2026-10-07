@@ -113,6 +113,10 @@ h1, h2, h3, p { margin-top: 0; }
 .search-button span { display: none; }
 .booking-message { min-height: 0; margin: 0; color: var(--ocean); font-size: 12px; }
 .booking-message:not(:empty) { padding-top: 12px; }
+.fare-estimate { margin: 11px 0 0; padding: 12px 14px; display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 4px 12px; border: 1px solid rgba(255,255,255,.24); border-radius: 4px; color: var(--white); background: rgba(255,255,255,.1); }
+.fare-estimate-label { color: rgba(255,255,255,.78); font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.fare-estimate strong { justify-self: end; font: 600 22px/1 var(--display); }
+.fare-estimate > span:last-child { grid-column: 1 / -1; color: rgba(255,255,255,.78); font-size: 10px; }
 .seat-selection { margin: 18px 0 8px; padding: 20px; border: 1px solid rgba(255,255,255,.24); border-radius: 8px; color: var(--ink); background: #f2f8ff; }
 .seat-selection-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .seat-eyebrow { margin: 0 0 5px; color: var(--ocean); font-size: 9px; font-weight: 700; letter-spacing: 1.6px; }

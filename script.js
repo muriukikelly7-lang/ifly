@@ -7,6 +7,8 @@ const fromSelect = document.querySelector('select[name="from"]');
 const toSelect = document.querySelector('select[name="to"]');
 const bookingMessage = document.querySelector("#booking-message");
 const passengerSelect = document.querySelector('select[name="passengers"]');
+const fareEstimateTotal = document.querySelector("#fare-estimate-total");
+const fareEstimateBreakdown = document.querySelector("#fare-estimate-breakdown");
 const seatGrid = document.querySelector("#seat-grid");
 const seatSelectionHint = document.querySelector("#seat-selection-hint");
 const seatSelectionStatus = document.querySelector("#seat-selection-status");
@@ -63,18 +65,45 @@ function getRouteFare(from, to) {
   return 0;
 }
 
-function getEstimatedFare(from, to, passengerValue) {
+function getEstimatedFare(from, to, passengerValue, tripValue = "oneway") {
   const passengerCount = parsePassengerCount(passengerValue);
   const routeFare = getRouteFare(from, to);
-  const totalFare = routeFare ? routeFare * passengerCount : 0;
+  const tripLegs = tripValue === "roundtrip" ? 2 : 1;
+  const passengerFare = routeFare ? routeFare * tripLegs : 0;
+  const totalFare = passengerFare * passengerCount;
 
   return {
     passengerCount,
     routeFare,
+    tripLegs,
+    passengerFare,
     totalFare,
     formattedFare: routeFare ? formatKsh(routeFare) : "Contact for quote",
+    formattedPassengerFare: routeFare ? formatKsh(passengerFare) : "Contact for quote",
     formattedTotalFare: routeFare ? formatKsh(totalFare) : "Contact for quote"
   };
+}
+
+function updateFareEstimate() {
+  if (!fromSelect || !toSelect || !fareEstimateTotal || !fareEstimateBreakdown) return;
+  if (!toSelect.value) {
+    fareEstimateTotal.textContent = "Choose a destination";
+    fareEstimateBreakdown.textContent = "Fare estimate updates with your trip type and passenger count.";
+    return;
+  }
+
+  const passengerValue = passengerSelect?.value || "1 passenger";
+  const tripValue = tripControl?.value || "roundtrip";
+  const estimate = getEstimatedFare(fromSelect.value, toSelect.value, passengerValue, tripValue);
+  if (!estimate.routeFare) {
+    fareEstimateTotal.textContent = "Contact for quote";
+    fareEstimateBreakdown.textContent = "This route's fare is confirmed by iFly reservations.";
+    return;
+  }
+
+  const tripDescription = estimate.tripLegs === 2 ? "round trip" : "one way";
+  fareEstimateTotal.textContent = `${estimate.formattedTotalFare} total`;
+  fareEstimateBreakdown.textContent = `${estimate.formattedPassengerFare} per person, ${tripDescription} × ${estimate.passengerCount} ${estimate.passengerCount === 1 ? "passenger" : "passengers"}`;
 }
 
 function renderSeatMap() {
@@ -167,6 +196,9 @@ if (returnInput) returnInput.min = localDate;
 renderSeatMap();
 updateSeatSelection();
 passengerSelect?.addEventListener("change", updateSeatSelection);
+passengerSelect?.addEventListener("change", updateFareEstimate);
+fromSelect?.addEventListener("change", updateFareEstimate);
+toSelect?.addEventListener("change", updateFareEstimate);
 
 function updateTripType() {
   if (!tripControl || !returnField || !returnInput) return;
@@ -175,7 +207,12 @@ function updateTripType() {
   returnInput.required = !oneWay;
 }
 
-if (tripControl) tripControl.addEventListener("change", updateTripType);
+if (tripControl) {
+  tripControl.addEventListener("change", () => {
+    updateTripType();
+    updateFareEstimate();
+  });
+}
 
 if (departureInput) {
   departureInput.addEventListener("change", () => {
@@ -192,6 +229,7 @@ document.querySelector(".swap-button")?.addEventListener("click", () => {
   if (!arriving) return;
   fromSelect.value = arriving;
   toSelect.value = departing;
+  updateFareEstimate();
 });
 
 flightForm?.addEventListener("submit", (event) => {
@@ -213,7 +251,7 @@ flightForm?.addEventListener("submit", (event) => {
     seatGrid?.scrollIntoView({ behavior: "smooth", block: "center" });
     return;
   }
-  const estimatedFare = getEstimatedFare(fromSelect.value, toSelect.value, passengerValue);
+  const estimatedFare = getEstimatedFare(fromSelect.value, toSelect.value, passengerValue, tripValue);
 
   const params = new URLSearchParams({
     from: fromSelect.value,
@@ -244,6 +282,7 @@ if (menuToggle && mainNav) {
 }
 
 updateTripType();
+updateFareEstimate();
 
 const bookingDetailForm = document.querySelector("#booking-details-form");
 if (bookingDetailForm) {
@@ -261,7 +300,7 @@ if (bookingDetailForm) {
   const seats = (params.get("seats") || "").split(",").filter(Boolean);
   const passengerCount = parsePassengerCount(passengers);
   const fareValue = Number(params.get("fare") || 0);
-  const fareEstimate = getEstimatedFare(from, to, passengers);
+  const fareEstimate = getEstimatedFare(from, to, passengers, trip);
   const finalFare = fareValue > 0 ? fareValue : fareEstimate.totalFare;
 
   const summaryFare = document.querySelector("#summary-fare");
