@@ -134,7 +134,8 @@ function renderSeatMap() {
       const isReserved = reservedSeats.has(seatNumber);
       button.type = "button";
       button.className = "seat-button";
-      button.textContent = seatNumber;
+      button.innerHTML = '<svg class="seat-person" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6" r="3.2"></circle><path d="M5.5 20v-2.2a6.5 6.5 0 0 1 13 0V20"></path></svg><span></span>';
+      button.querySelector("span").textContent = seatNumber;
       button.dataset.seat = seatNumber;
       button.disabled = isReserved;
       button.setAttribute("aria-pressed", "false");
