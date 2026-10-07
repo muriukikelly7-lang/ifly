@@ -49,6 +49,27 @@
             <label class="field field-guests"><span>Passengers</span><select name="passengers" aria-label="Passengers"><option>1 passenger</option><option>2 passengers</option><option>3 passengers</option><option>4 passengers</option><option>5 passengers</option><option>6 passengers</option></select></label>
             <button class="search-button" type="submit">Find flights <span aria-hidden="true">→</span></button>
           </div><p class="booking-message" id="booking-message" aria-live="polite"></p>
+          <section class="seat-selection" aria-labelledby="seat-selection-title">
+            <div class="seat-selection-heading">
+              <div>
+                <p class="seat-eyebrow">MAKE IT YOURS</p>
+                <h3 id="seat-selection-title">Choose your seats</h3>
+                <p class="seat-selection-hint" id="seat-selection-hint">Select 1 seat for your passengers.</p>
+              </div>
+              <span class="seat-flight-mark" aria-hidden="true">✈</span>
+            </div>
+            <div class="seat-legend" aria-label="Seat availability">
+              <span><i class="seat-legend-dot available"></i>Available</span>
+              <span><i class="seat-legend-dot reserved"></i>Reserved</span>
+              <span><i class="seat-legend-dot selected"></i>Selected</span>
+            </div>
+            <div class="seat-map" aria-label="Seat map">
+              <div class="seat-cockpit"><span aria-hidden="true">✈</span> Cockpit</div>
+              <div class="seat-grid" id="seat-grid" aria-label="Choose seats"></div>
+            </div>
+            <p class="seat-selection-status" id="seat-selection-status" aria-live="polite">Choose seats to match your passenger count.</p>
+            <p class="seat-availability-note">Seat availability is subject to confirmation by iFly reservations.</p>
+          </section>
         </form>
       </section>
 
