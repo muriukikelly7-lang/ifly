@@ -18,15 +18,10 @@ const toast = document.querySelector("#toast");
 
 const routeFares = {
   "Nairobi|Wajir": 9000,
-  "Wajir|Nairobi": 9000,
   "Nairobi|Lamu": 7000,
-  "Lamu|Nairobi": 7000,
   "Nairobi|Mandera": 13200,
-  "Mandera|Nairobi": 13200,
   "Nairobi|Juba": 20000,
-  "Juba|Nairobi": 20000,
-  "Nairobi|Mogadishu": 25000,
-  "Mogadishu|Nairobi": 25000
+  "Nairobi|Mogadishu": 25000
 };
 
 const seatColumns = ["A", "B", "C", "D"];
@@ -46,11 +41,7 @@ function parsePassengerCount(passengerValue) {
 }
 
 function formatKsh(amount) {
-  return new Intl.NumberFormat("en-KE", {
-    style: "currency",
-    currency: "KES",
-    maximumFractionDigits: 0
-  }).format(amount);
+  return `KSH ${new Intl.NumberFormat("en-KE", { maximumFractionDigits: 0 }).format(amount)}`;
 }
 
 function getRouteFare(from, to) {
@@ -65,6 +56,16 @@ function getRouteFare(from, to) {
   return 0;
 }
 
+function renderPublishedRouteFares() {
+  document.querySelectorAll("[data-route-destination]").forEach((element) => {
+    const fare = getRouteFare("Nairobi", element.dataset.routeDestination);
+    if (!fare) return;
+
+    const prefix = element.dataset.farePrefix;
+    element.textContent = `${prefix ? `${prefix} ` : ""}KSH ${new Intl.NumberFormat("en-KE").format(fare)}`;
+  });
+}
+
 function getEstimatedFare(from, to, passengerValue, tripValue = "oneway") {
   const passengerCount = parsePassengerCount(passengerValue);
   const routeFare = getRouteFare(from, to);
@@ -76,10 +77,8 @@ function getEstimatedFare(from, to, passengerValue, tripValue = "oneway") {
     passengerCount,
     routeFare,
     tripLegs,
-    passengerFare,
     totalFare,
     formattedFare: routeFare ? formatKsh(routeFare) : "Contact for quote",
-    formattedPassengerFare: routeFare ? formatKsh(passengerFare) : "Contact for quote",
     formattedTotalFare: routeFare ? formatKsh(totalFare) : "Contact for quote"
   };
 }
@@ -103,7 +102,7 @@ function updateFareEstimate() {
 
   const tripDescription = estimate.tripLegs === 2 ? "round trip" : "one way";
   fareEstimateTotal.textContent = `${estimate.formattedTotalFare} total`;
-  fareEstimateBreakdown.textContent = `${estimate.formattedPassengerFare} per person, ${tripDescription} × ${estimate.passengerCount} ${estimate.passengerCount === 1 ? "passenger" : "passengers"}`;
+  fareEstimateBreakdown.textContent = `${estimate.formattedFare} per flight × ${estimate.tripLegs} ${estimate.tripLegs === 1 ? "flight" : "flights"} × ${estimate.passengerCount} ${estimate.passengerCount === 1 ? "passenger" : "passengers"} (${tripDescription})`;
 }
 
 function renderSeatMap() {
@@ -252,16 +251,13 @@ flightForm?.addEventListener("submit", (event) => {
     seatGrid?.scrollIntoView({ behavior: "smooth", block: "center" });
     return;
   }
-  const estimatedFare = getEstimatedFare(fromSelect.value, toSelect.value, passengerValue, tripValue);
-
   const params = new URLSearchParams({
     from: fromSelect.value,
     to: toSelect.value,
     trip: tripValue,
     depart: departValue,
     passengers: passengerValue,
-    seats: [...selectedSeats].join(","),
-    fare: String(estimatedFare.totalFare)
+    seats: [...selectedSeats].join(",")
   });
 
   window.location.href = `booking-details.html?${params.toString()}`;
@@ -283,6 +279,7 @@ if (menuToggle && mainNav) {
 }
 
 updateTripType();
+renderPublishedRouteFares();
 updateFareEstimate();
 
 const bookingDetailForm = document.querySelector("#booking-details-form");
@@ -300,9 +297,8 @@ if (bookingDetailForm) {
   const passengers = params.get("passengers") || "1 passenger";
   const seats = (params.get("seats") || "").split(",").filter(Boolean);
   const passengerCount = parsePassengerCount(passengers);
-  const fareValue = Number(params.get("fare") || 0);
   const fareEstimate = getEstimatedFare(from, to, passengers, trip);
-  const finalFare = fareValue > 0 ? fareValue : fareEstimate.totalFare;
+  const finalFare = fareEstimate.totalFare;
 
   const summaryFare = document.querySelector("#summary-fare");
   const bookingValidationMessage = document.querySelector("#booking-validation-message");
