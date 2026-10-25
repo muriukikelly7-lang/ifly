@@ -12,6 +12,9 @@ const fareEstimateBreakdown = document.querySelector("#fare-estimate-breakdown")
 const seatGrid = document.querySelector("#seat-grid");
 const seatSelectionHint = document.querySelector("#seat-selection-hint");
 const seatSelectionStatus = document.querySelector("#seat-selection-status");
+const seatSelectionDialog = document.querySelector("#seat-selection-dialog");
+const seatSelectionConfirm = document.querySelector("#seat-selection-confirm");
+const seatSelectionBack = document.querySelector("#seat-selection-back");
 const menuToggle = document.querySelector(".menu-toggle");
 const mainNav = document.querySelector("#main-nav");
 const toast = document.querySelector("#toast");
@@ -247,12 +250,33 @@ flightForm?.addEventListener("submit", (event) => {
   const tripValue = tripControl ? tripControl.value : "roundtrip";
   const departValue = departureInput ? departureInput.value || "TBD" : "TBD";
   const passengerValue = passengerSelect?.value || "1 passenger";
-  const passengerCount = parsePassengerCount(passengerValue);
-  if (selectedSeats.size !== passengerCount) {
-    if (bookingMessage) bookingMessage.textContent = `Please select exactly ${passengerCount} ${passengerCount === 1 ? "seat" : "seats"} before continuing.`;
-    seatGrid?.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (!seatSelectionDialog || typeof seatSelectionDialog.showModal !== "function") {
+    if (bookingMessage) bookingMessage.textContent = "Seat selection is unavailable. Please refresh the page and try again.";
     return;
   }
+
+  updateSeatSelection();
+  seatSelectionDialog.showModal();
+});
+
+seatSelectionBack?.addEventListener("click", () => {
+  seatSelectionDialog?.close();
+});
+
+seatSelectionConfirm?.addEventListener("click", () => {
+  if (!fromSelect || !toSelect) return;
+  const tripValue = tripControl ? tripControl.value : "roundtrip";
+  const departValue = departureInput ? departureInput.value || "TBD" : "TBD";
+  const passengerValue = passengerSelect?.value || "1 passenger";
+  const passengerCount = parsePassengerCount(passengerValue);
+  if (selectedSeats.size !== passengerCount) {
+    if (seatSelectionStatus) {
+      seatSelectionStatus.textContent = `Please select exactly ${passengerCount} ${passengerCount === 1 ? "seat" : "seats"} before continuing.`;
+    }
+    seatGrid?.querySelector(".seat-button:not(:disabled)")?.focus();
+    return;
+  }
+
   const params = new URLSearchParams({
     from: fromSelect.value,
     to: toSelect.value,
