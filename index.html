@@ -46,7 +46,7 @@
             <label class="field field-place"><span>To</span><select name="to" required aria-label="Arrival city"><option value="" disabled selected>Choose destination</option><option value="Nairobi (WIL)">Nairobi (WIL)</option><option value="Mombasa (MBA)">Mombasa (MBA)</option><option value="Wajir (WJR)">Wajir (WJR)</option><option value="Lamu (LAU)">Lamu (LAU)</option><option value="Garissa (GAS)">Garissa (GAS)</option><option value="Lodwar (LOK)">Lodwar (LOK)</option><option value="Kisumu (KIS)">Kisumu (KIS)</option><option value="Mandera (NDE)">Mandera (NDE)</option><option value="Mogadishu (MGQ)">Mogadishu (MGQ)</option><option value="Juba (JUB)">Juba (JUB)</option></select></label>
             <label class="field field-date"><span>Depart</span><input name="depart" type="date" required aria-label="Departure date"></label>
             <label class="field field-date return-field"><span>Return</span><input name="return" type="date" aria-label="Return date"></label>
-            <label class="field field-guests"><span>Passengers</span><select name="passengers" aria-label="Passengers"><option>1 passenger</option><option>2 passengers</option><option>3 passengers</option><option>4 passengers</option><option>5 passengers</option><option>6 passengers</option></select></label>
+            <label class="field field-guests"><span>Passengers</span><input name="passengers" type="number" min="1" step="1" value="1" required aria-label="Number of passengers"></label>
             <button class="search-button" type="submit">Find flights <span aria-hidden="true">→</span></button>
           </div><p class="booking-message" id="booking-message" aria-live="polite"></p>
           <div class="fare-estimate" aria-live="polite" aria-atomic="true">

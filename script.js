@@ -6,7 +6,7 @@ const departureInput = document.querySelector('input[name="depart"]');
 const fromSelect = document.querySelector('select[name="from"]');
 const toSelect = document.querySelector('select[name="to"]');
 const bookingMessage = document.querySelector("#booking-message");
-const passengerSelect = document.querySelector('select[name="passengers"]');
+const passengerInput = document.querySelector('input[name="passengers"]');
 const fareEstimateTotal = document.querySelector("#fare-estimate-total");
 const fareEstimateBreakdown = document.querySelector("#fare-estimate-breakdown");
 const seatGrid = document.querySelector("#seat-grid");
@@ -32,6 +32,7 @@ const routeFares = {
 const seatColumns = ["A", "B", "C", "D"];
 const reservedSeats = new Set(["A1", "B2", "C3", "C5", "B6", "A7", "D8"]);
 const selectedSeats = new Set();
+let renderedSeatRowCount = 0;
 const today = new Date();
 const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 
@@ -41,8 +42,9 @@ function normalizeCityName(city) {
 }
 
 function parsePassengerCount(passengerValue) {
-  const match = String(passengerValue || "1 passenger").match(/\d+/);
-  return match ? Number(match[0]) : 1;
+  const match = String(passengerValue || "").match(/^\s*(\d+)/);
+  const passengerCount = match ? Number(match[1]) : 0;
+  return Number.isSafeInteger(passengerCount) && passengerCount > 0 ? passengerCount : 0;
 }
 
 function formatKsh(amount) {
@@ -96,7 +98,13 @@ function updateFareEstimate() {
     return;
   }
 
-  const passengerValue = passengerSelect?.value || "1 passenger";
+  if (!passengerInput?.validity.valid) {
+    fareEstimateTotal.textContent = "Enter passenger count";
+    fareEstimateBreakdown.textContent = "Enter a whole number of passengers greater than zero.";
+    return;
+  }
+
+  const passengerValue = passengerInput.value;
   const tripValue = tripControl?.value || "roundtrip";
   const estimate = getEstimatedFare(fromSelect.value, toSelect.value, passengerValue, tripValue);
   if (!estimate.routeFare) {
@@ -110,10 +118,16 @@ function updateFareEstimate() {
   fareEstimateBreakdown.textContent = `${estimate.formattedFare} per flight × ${estimate.tripLegs} ${estimate.tripLegs === 1 ? "flight" : "flights"} × ${estimate.passengerCount} ${estimate.passengerCount === 1 ? "passenger" : "passengers"} (${tripDescription})`;
 }
 
-function renderSeatMap() {
+function getSeatRowCount(passengerCount) {
+  return Math.max(8, Math.ceil((passengerCount + reservedSeats.size) / seatColumns.length));
+}
+
+function renderSeatMap(passengerCount = parsePassengerCount(passengerInput?.value)) {
   if (!seatGrid) return;
 
+  const rowCount = getSeatRowCount(passengerCount);
   seatGrid.replaceChildren();
+  renderedSeatRowCount = rowCount;
   const corner = document.createElement("span");
   corner.className = "seat-grid-corner";
   corner.setAttribute("aria-hidden", "true");
@@ -126,7 +140,7 @@ function renderSeatMap() {
     seatGrid.append(heading);
   });
 
-  for (let row = 1; row <= 8; row += 1) {
+  for (let row = 1; row <= rowCount; row += 1) {
     const rowHeading = document.createElement("span");
     rowHeading.className = "seat-row-heading";
     rowHeading.textContent = String(row);
@@ -152,13 +166,21 @@ function renderSeatMap() {
 }
 
 function updateSeatSelection() {
-  if (!seatGrid || !passengerSelect) return;
+  if (!seatGrid || !passengerInput) return;
 
-  const passengerCount = parsePassengerCount(passengerSelect.value);
-  if (selectedSeats.size > passengerCount) {
-    const selectedInOrder = [...seatGrid.querySelectorAll(".seat-button.selected")].map((seat) => seat.dataset.seat);
-    selectedInOrder.slice(passengerCount).forEach((seat) => selectedSeats.delete(seat));
+  if (!passengerInput.validity.valid) {
+    if (seatSelectionStatus) seatSelectionStatus.textContent = "Enter a valid number of passengers.";
+    return;
   }
+  const passengerCount = parsePassengerCount(passengerInput.value);
+  if (!passengerCount) {
+    if (seatSelectionStatus) seatSelectionStatus.textContent = "Enter a valid number of passengers.";
+    return;
+  }
+  if (selectedSeats.size > passengerCount) {
+    [...selectedSeats].slice(passengerCount).forEach((seat) => selectedSeats.delete(seat));
+  }
+  if (renderedSeatRowCount !== getSeatRowCount(passengerCount)) renderSeatMap(passengerCount);
 
   seatGrid.querySelectorAll(".seat-button").forEach((button) => {
     const isSelected = selectedSeats.has(button.dataset.seat);
@@ -180,8 +202,9 @@ function updateSeatSelection() {
 }
 
 function toggleSeat(seatNumber) {
-  if (!passengerSelect || !seatGrid) return;
-  const passengerCount = parsePassengerCount(passengerSelect.value);
+  if (!passengerInput || !seatGrid) return;
+  const passengerCount = parsePassengerCount(passengerInput.value);
+  if (!passengerCount) return;
 
   if (selectedSeats.has(seatNumber)) {
     selectedSeats.delete(seatNumber);
@@ -200,8 +223,10 @@ if (departureInput) departureInput.min = localDate;
 if (returnInput) returnInput.min = localDate;
 renderSeatMap();
 updateSeatSelection();
-passengerSelect?.addEventListener("change", updateSeatSelection);
-passengerSelect?.addEventListener("change", updateFareEstimate);
+passengerInput?.addEventListener("input", () => {
+  updateSeatSelection();
+  updateFareEstimate();
+});
 fromSelect?.addEventListener("change", updateFareEstimate);
 toSelect?.addEventListener("change", updateFareEstimate);
 
@@ -249,7 +274,6 @@ flightForm?.addEventListener("submit", (event) => {
 
   const tripValue = tripControl ? tripControl.value : "roundtrip";
   const departValue = departureInput ? departureInput.value || "TBD" : "TBD";
-  const passengerValue = passengerSelect?.value || "1 passenger";
   if (!seatSelectionDialog || typeof seatSelectionDialog.showModal !== "function") {
     if (bookingMessage) bookingMessage.textContent = "Seat selection is unavailable. Please refresh the page and try again.";
     return;
@@ -267,8 +291,9 @@ seatSelectionConfirm?.addEventListener("click", () => {
   if (!fromSelect || !toSelect) return;
   const tripValue = tripControl ? tripControl.value : "roundtrip";
   const departValue = departureInput ? departureInput.value || "TBD" : "TBD";
-  const passengerValue = passengerSelect?.value || "1 passenger";
-  const passengerCount = parsePassengerCount(passengerValue);
+  const passengerCount = parsePassengerCount(passengerInput?.value);
+  if (!passengerCount) return;
+  const passengerValue = `${passengerCount} ${passengerCount === 1 ? "passenger" : "passengers"}`;
   if (selectedSeats.size !== passengerCount) {
     if (seatSelectionStatus) {
       seatSelectionStatus.textContent = `Please select exactly ${passengerCount} ${passengerCount === 1 ? "seat" : "seats"} before continuing.`;
