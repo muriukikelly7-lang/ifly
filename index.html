@@ -47,6 +47,7 @@
             <label class="field field-date"><span>Depart</span><input name="depart" type="date" required aria-label="Departure date"></label>
             <label class="field field-date return-field"><span>Return</span><input name="return" type="date" aria-label="Return date"></label>
             <label class="field field-guests"><span>Passengers</span><input name="passengers" type="number" min="1" step="1" value="1" required aria-label="Number of passengers"></label>
+            <label class="field field-time"><span>Preferred time (request)</span><select name="departTime" required aria-label="Preferred departure time"><option value="" selected disabled>Choose session</option><option value="08:00">08:00 — Morning</option><option value="17:00">17:00 — Evening</option></select></label>
             <button class="search-button" type="submit">Find flights <span aria-hidden="true">→</span></button>
           </div><p class="booking-message" id="booking-message" aria-live="polite"></p>
           <div class="fare-estimate" aria-live="polite" aria-atomic="true">

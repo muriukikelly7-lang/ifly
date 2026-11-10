@@ -28,6 +28,7 @@
             <ul>
               <li><span>Route</span><strong id="summary-route">—</strong></li>
               <li><span>Departure</span><strong id="summary-depart">—</strong></li>
+              <li><span>Preferred time</span><strong id="summary-depart-time">—</strong></li>
               <li><span>Passengers</span><strong id="summary-passengers">—</strong></li>
               <li><span>Selected seats</span><strong id="summary-seats">—</strong></li>
               <li><span>Estimated fare</span><strong id="summary-fare">—</strong></li>
@@ -61,8 +62,19 @@
           </div>
 
           <div class="field-row">
+            <label>
+              <span>Passenger type</span>
+              <select name="passengerType">
+                <option value="Adult" selected>Adult</option>
+                <option value="Child">Child</option>
+                <option value="Infant">Infant</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="field-row">
             <label class="single-wide">
-              <span>Travel notes</span>
+              <span>Special requests</span>
               <textarea name="notes" rows="4" placeholder="Any special requests or notes"></textarea>
             </label>
           </div>

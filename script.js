@@ -3,6 +3,7 @@ const tripControl = document.querySelector('select[name="trip"]');
 const returnField = document.querySelector(".return-field");
 const returnInput = document.querySelector('input[name="return"]');
 const departureInput = document.querySelector('input[name="depart"]');
+const departureTimeSelect = document.querySelector('select[name="departTime"]');
 const fromSelect = document.querySelector('select[name="from"]');
 const toSelect = document.querySelector('select[name="to"]');
 const bookingMessage = document.querySelector("#booking-message");
@@ -20,6 +21,7 @@ const mainNav = document.querySelector("#main-nav");
 const toast = document.querySelector("#toast");
 
 const routeFares = {
+  "Nairobi|Mombasa": 6000,
   "Nairobi|Lamu": 6500,
   "Nairobi|Garissa": 5500,
   "Nairobi|Lodwar": 8500,
@@ -307,6 +309,7 @@ seatSelectionConfirm?.addEventListener("click", () => {
     to: toSelect.value,
     trip: tripValue,
     depart: departValue,
+    departTime: departureTimeSelect?.value || "",
     passengers: passengerValue,
     seats: [...selectedSeats].join(",")
   });
@@ -337,6 +340,7 @@ const bookingDetailForm = document.querySelector("#booking-details-form");
 if (bookingDetailForm) {
   const summaryRoute = document.querySelector("#summary-route");
   const summaryDepart = document.querySelector("#summary-depart");
+  const summaryDepartTime = document.querySelector("#summary-depart-time");
   const summaryPassengers = document.querySelector("#summary-passengers");
   const summarySeats = document.querySelector("#summary-seats");
   const params = new URLSearchParams(window.location.search);
@@ -345,6 +349,8 @@ if (bookingDetailForm) {
   const to = params.get("to") || "Mombasa";
   const trip = params.get("trip") || "roundtrip";
   const depart = params.get("depart") || "TBD";
+  const departTime = params.get("departTime") || "";
+  const departSession = departTime === "08:00" ? "Morning" : departTime === "17:00" ? "Evening" : "";
   const passengers = params.get("passengers") || "1 passenger";
   const seats = (params.get("seats") || "").split(",").filter(Boolean);
   const passengerCount = parsePassengerCount(passengers);
@@ -356,6 +362,7 @@ if (bookingDetailForm) {
 
   if (summaryRoute) summaryRoute.textContent = `${normalizeCityName(from)} → ${normalizeCityName(to)}`;
   if (summaryDepart) summaryDepart.textContent = trip === "oneway" ? `${depart} (one-way)` : `${depart}`;
+  if (summaryDepartTime) summaryDepartTime.textContent = departSession ? `${departTime} ${departSession} (requested)` : "To be selected";
   if (summaryPassengers) summaryPassengers.textContent = passengers;
   if (summarySeats) summarySeats.textContent = seats.join(", ") || "Not selected";
   if (summaryFare) summaryFare.textContent = finalFare > 0 ? `${formatKsh(finalFare)} total` : "Contact for quote";
@@ -368,6 +375,7 @@ if (bookingDetailForm) {
     const idNumber = formData.get("idNumber")?.toString().trim();
     const email = formData.get("email")?.toString().trim();
     const phone = formData.get("phone")?.toString().trim();
+    const passengerType = formData.get("passengerType")?.toString();
     const notes = formData.get("notes")?.toString().trim();
 
     if (!fullName || !idNumber || !email || !phone) {
@@ -382,21 +390,29 @@ if (bookingDetailForm) {
       return;
     }
 
-    const totalFareText = finalFare > 0 ? `Estimated fare: ${formatKsh(finalFare)}` : "Estimated fare: Please contact reservations";
-
     const whatsappMessage = [
-      "Hello iFly, I would like to confirm my booking.",
-      `Full name: ${fullName}`,
-      `ID/Passport: ${idNumber}`,
-      `Email: ${email}`,
-      `Phone: ${phone}`,
-      `Trip: ${normalizeCityName(from)} to ${normalizeCityName(to)}`,
-      `Departure: ${depart}`,
+      "Hello Fly 748,",
+      "",
+      "I would like to confirm my booking:",
+      `Route: ${normalizeCityName(from)} → ${normalizeCityName(to)}`,
+      `Depart: ${depart} at ${departTime ? `${departTime}${departSession ? ` — ${departSession}` : ""} (requested; subject to airline confirmation)` : "a time to be confirmed"}`,
+      `Fare per passenger per journey: ${fareEstimate.routeFare > 0 ? `Ksh. ${new Intl.NumberFormat("en-KE").format(fareEstimate.routeFare)}` : "To be confirmed"}`,
+      `Journeys: ${fareEstimate.tripLegs}`,
       `Passengers: ${passengers}`,
-      `Selected seats (subject to confirmation): ${seats.join(", ")}`,
-      totalFareText,
-      notes ? `Notes: ${notes}` : "",
-    ].filter(Boolean).join("\n");
+      `Total: ${finalFare > 0 ? `Ksh. ${new Intl.NumberFormat("en-KE").format(finalFare)}` : "To be confirmed"}`,
+      `Seats: ${seats.join(", ")}`,
+      "Flight: To be confirmed by reservations",
+      "",
+      "Passenger details:",
+      `Name: ${fullName}`,
+      `ID/Passport: ${idNumber}`,
+      `Passenger type: ${passengerType || "Adult"}`,
+      `Phone: ${phone}`,
+      `Email: ${email}`,
+      `Special requests: ${notes || "None"}`,
+      "",
+      "Please help me complete this booking."
+    ].join("\n");
 
     const url = `https://wa.me/254736989645?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(url, "_blank", "noopener,noreferrer");
