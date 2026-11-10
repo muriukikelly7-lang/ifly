@@ -391,7 +391,7 @@ if (bookingDetailForm) {
     }
 
     const whatsappMessage = [
-      "Hello Fly 748,",
+      "Hello iFly Air,",
       "",
       "I would like to confirm my booking:",
       `Route: ${normalizeCityName(from)} → ${normalizeCityName(to)}`,
