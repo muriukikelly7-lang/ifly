@@ -53,7 +53,7 @@ button, a, select { -webkit-tap-highlight-color: transparent; }
 .hero { height: 527px; min-height: 527px; position: relative; overflow: hidden; color: var(--white); background: var(--ink-soft); }
 .hero-photo { position: absolute; inset: 0; background-image: url("https://ifly.co.ke/wp-content/uploads/2026/03/Website-landing-page-new-banner1.png"); background-size: cover; background-position: center 55%; transform: scale(1.025); animation: arrive 1.3s ease-out both; }
 .hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,34,44,.82) 0%, rgba(7,37,47,.53) 40%, rgba(7,37,47,.02) 78%), linear-gradient(0deg, rgba(5,32,41,.35), transparent 36%); }
-.hero-copy { position: absolute; top: 16px; left: 14.5vw; width: 305px; height: 326px; overflow: hidden; border-radius: 18px; color: var(--white); background: var(--sun); }
+.hero-copy { position: absolute; top: 16px; left: 14.5vw; width: 305px; min-height: 326px; height: auto; overflow: hidden; border-radius: 18px; color: var(--white); background: var(--sun); }
 .hero-welcome { position: absolute; top: 29px; left: 0; width: 105px; height: 31px; display: grid; place-items: center; border-right: 4px solid var(--ocean); color: var(--sun); background: var(--white); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
 .hero-card-content { padding: 82px 20px 18px; }
 .hero-headline { display: flex; align-items: center; gap: 15px; }
