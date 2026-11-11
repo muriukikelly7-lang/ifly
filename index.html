@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js?v=20261110-817c3c2" defer></script>
+    <script src="script.js?v=20261111-fares" defer></script>
   </head>
   <body>
     <div class="utility-bar"><div class="utility-inner">
@@ -41,9 +41,9 @@
             <label class="trip-select-label"><span class="visually-hidden">Trip type</span><select name="trip" aria-label="Trip type"><option value="roundtrip" selected>Roundtrip</option><option value="oneway">One-way</option></select></label>
           </div>
           <div class="booking-fields">
-            <label class="field field-place"><span>From</span><select name="from" required aria-label="Departure city"><option value="Nairobi (WIL)" selected>Nairobi (WIL)</option><option value="Mombasa (MBA)">Mombasa (MBA)</option><option value="Wajir (WJR)">Wajir (WJR)</option><option value="Lamu (LAU)">Lamu (LAU)</option><option value="Garissa (GAS)">Garissa (GAS)</option><option value="Lodwar (LOK)">Lodwar (LOK)</option><option value="Kisumu (KIS)">Kisumu (KIS)</option><option value="Mandera (NDE)">Mandera (NDE)</option><option value="Mogadishu (MGQ)">Mogadishu (MGQ)</option><option value="Juba (JUB)">Juba (JUB)</option></select></label>
+            <label class="field field-place"><span>From</span><select name="from" required aria-label="Departure city"><option value="Nairobi (WIL)" selected>Nairobi (WIL)</option><option value="Mombasa (MBA)">Mombasa (MBA)</option><option value="Wajir (WJR)">Wajir (WJR)</option><option value="Lamu (LAU)">Lamu (LAU)</option><option value="Moyale">Moyale</option><option value="Garissa (GAS)">Garissa (GAS)</option><option value="Lodwar (LOK)">Lodwar (LOK)</option><option value="Kisumu (KIS)">Kisumu (KIS)</option><option value="Mandera (NDE)">Mandera (NDE)</option><option value="Mogadishu (MGQ)">Mogadishu (MGQ)</option><option value="Juba (JUB)">Juba (JUB)</option></select></label>
             <button class="swap-button" type="button" aria-label="Swap departure and arrival">⇄</button>
-            <label class="field field-place"><span>To</span><select name="to" required aria-label="Arrival city"><option value="" disabled selected>Choose destination</option><option value="Nairobi (WIL)">Nairobi (WIL)</option><option value="Mombasa (MBA)">Mombasa (MBA)</option><option value="Wajir (WJR)">Wajir (WJR)</option><option value="Lamu (LAU)">Lamu (LAU)</option><option value="Garissa (GAS)">Garissa (GAS)</option><option value="Lodwar (LOK)">Lodwar (LOK)</option><option value="Kisumu (KIS)">Kisumu (KIS)</option><option value="Mandera (NDE)">Mandera (NDE)</option><option value="Mogadishu (MGQ)">Mogadishu (MGQ)</option><option value="Juba (JUB)">Juba (JUB)</option></select></label>
+            <label class="field field-place"><span>To</span><select name="to" required aria-label="Arrival city"><option value="" disabled selected>Choose destination</option><option value="Nairobi (WIL)">Nairobi (WIL)</option><option value="Mombasa (MBA)">Mombasa (MBA)</option><option value="Wajir (WJR)">Wajir (WJR)</option><option value="Lamu (LAU)">Lamu (LAU)</option><option value="Moyale">Moyale</option><option value="Garissa (GAS)">Garissa (GAS)</option><option value="Lodwar (LOK)">Lodwar (LOK)</option><option value="Kisumu (KIS)">Kisumu (KIS)</option><option value="Mandera (NDE)">Mandera (NDE)</option><option value="Mogadishu (MGQ)">Mogadishu (MGQ)</option><option value="Juba (JUB)">Juba (JUB)</option></select></label>
             <label class="field field-date"><span>Depart</span><input name="depart" type="date" required aria-label="Departure date"></label>
             <label class="field field-date return-field"><span>Return</span><input name="return" type="date" aria-label="Return date"></label>
             <label class="field field-guests"><span>Passengers</span><input name="passengers" type="number" min="1" step="1" value="1" required aria-label="Number of passengers"></label>
@@ -96,37 +96,42 @@
         <div class="fare-price-grid">
           <article class="fare-price-item">
             <span class="fare-destination">Lamu</span>
-            <strong class="fare-amount" data-route-destination="Lamu">KSH 6,500</strong>
+            <strong class="fare-amount" data-route-destination="Lamu">KSH 15,000</strong>
             <small>Lamu to Nairobi</small>
           </article>
           <article class="fare-price-item">
+            <span class="fare-destination">Moyale</span>
+            <strong class="fare-amount" data-route-destination="Moyale">KSH 7,000</strong>
+            <small>Moyale to Nairobi</small>
+          </article>
+          <article class="fare-price-item">
             <span class="fare-destination">Garissa</span>
-            <strong class="fare-amount" data-route-destination="Garissa">KSH 5,500</strong>
+            <strong class="fare-amount" data-route-destination="Garissa">KSH 6,500</strong>
             <small>Garissa to Nairobi</small>
           </article>
           <article class="fare-price-item">
             <span class="fare-destination">Lodwar</span>
-            <strong class="fare-amount" data-route-destination="Lodwar">KSH 8,500</strong>
+            <strong class="fare-amount" data-route-destination="Lodwar">KSH 9,500</strong>
             <small>Lodwar to Nairobi</small>
           </article>
           <article class="fare-price-item">
             <span class="fare-destination">Wajir</span>
-            <strong class="fare-amount" data-route-destination="Wajir">KSH 5,000</strong>
+            <strong class="fare-amount" data-route-destination="Wajir">KSH 10,000</strong>
             <small>Wajir to Nairobi</small>
           </article>
           <article class="fare-price-item">
             <span class="fare-destination">Mandera</span>
-            <strong class="fare-amount" data-route-destination="Mandera">KSH 13,200</strong>
+            <strong class="fare-amount" data-route-destination="Mandera">KSH 15,000</strong>
             <small>Mandera to Nairobi</small>
           </article>
           <article class="fare-price-item">
             <span class="fare-destination">Juba</span>
-            <strong class="fare-amount" data-route-destination="Juba">KSH 15,000</strong>
+            <strong class="fare-amount" data-route-destination="Juba">KSH 18,000</strong>
             <small>Juba to Nairobi</small>
           </article>
           <article class="fare-price-item">
             <span class="fare-destination">Mogadishu</span>
-            <strong class="fare-amount" data-route-destination="Mogadishu">KSH 20,000</strong>
+            <strong class="fare-amount" data-route-destination="Mogadishu">KSH 25,000</strong>
             <small>Mogadishu to Nairobi</small>
           </article>
         </div>

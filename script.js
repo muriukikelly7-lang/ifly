@@ -22,13 +22,14 @@ const toast = document.querySelector("#toast");
 
 const routeFares = {
   "Nairobi|Mombasa": 6000,
-  "Nairobi|Lamu": 6500,
-  "Nairobi|Garissa": 5500,
-  "Nairobi|Lodwar": 8500,
-  "Nairobi|Wajir": 5000,
-  "Nairobi|Mandera": 13200,
-  "Nairobi|Juba": 15000,
-  "Nairobi|Mogadishu": 20000
+  "Nairobi|Lamu": 15000,
+  "Nairobi|Moyale": 7000,
+  "Nairobi|Garissa": 6500,
+  "Nairobi|Lodwar": 9500,
+  "Nairobi|Wajir": 10000,
+  "Nairobi|Mandera": 15000,
+  "Nairobi|Juba": 18000,
+  "Nairobi|Mogadishu": 25000
 };
 
 const seatColumns = ["A", "B", "C", "D"];
