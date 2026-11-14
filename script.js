@@ -225,8 +225,34 @@ passengerInput?.addEventListener("input", () => {
   updateSeatSelection();
   updateFareEstimate();
 });
-fromSelect?.addEventListener("change", updateFareEstimate);
-toSelect?.addEventListener("change", updateFareEstimate);
+
+function updateLocationOptions(changedSelect) {
+  if (!fromSelect || !toSelect) return;
+
+  if (fromSelect.value && fromSelect.value === toSelect.value) {
+    if (changedSelect === fromSelect) {
+      toSelect.value = "";
+    } else {
+      fromSelect.value = "";
+    }
+  }
+
+  Array.from(fromSelect.options).forEach((option) => {
+    option.disabled = Boolean(option.value && option.value === toSelect.value);
+  });
+  Array.from(toSelect.options).forEach((option) => {
+    option.disabled = Boolean(option.value && option.value === fromSelect.value);
+  });
+}
+
+function handleLocationChange(event) {
+  updateLocationOptions(event.currentTarget);
+  updateFareEstimate();
+}
+
+updateLocationOptions();
+fromSelect?.addEventListener("change", handleLocationChange);
+toSelect?.addEventListener("change", handleLocationChange);
 
 function updateTripType() {
   if (!tripControl || !returnField || !returnInput) return;
@@ -257,6 +283,7 @@ document.querySelector(".swap-button")?.addEventListener("click", () => {
   if (!arriving) return;
   fromSelect.value = arriving;
   toSelect.value = departing;
+  updateLocationOptions();
   updateFareEstimate();
 });
 
