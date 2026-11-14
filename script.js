@@ -21,15 +21,10 @@ const mainNav = document.querySelector("#main-nav");
 const toast = document.querySelector("#toast");
 
 const routeFares = {
-  "Nairobi|Mombasa": 6000,
-  "Nairobi|Lamu": 15000,
-  "Nairobi|Moyale": 7000,
-  "Nairobi|Garissa": 6500,
-  "Nairobi|Lodwar": 9500,
-  "Nairobi|Wajir": 10000,
+  "Nairobi|Wajir": 8000,
   "Nairobi|Mandera": 15000,
-  "Nairobi|Juba": 18000,
-  "Nairobi|Mogadishu": 25000
+  "Nairobi|Juba": 21000,
+  "Nairobi|Mogadishu": 28600
 };
 
 const seatColumns = ["A", "B", "C", "D"];
@@ -69,10 +64,10 @@ function getRouteFare(from, to) {
 function renderPublishedRouteFares() {
   document.querySelectorAll("[data-route-destination]").forEach((element) => {
     const fare = getRouteFare("Nairobi", element.dataset.routeDestination);
-    if (!fare) return;
-
     const prefix = element.dataset.farePrefix;
-    element.textContent = `${prefix ? `${prefix} ` : ""}KSH ${new Intl.NumberFormat("en-KE").format(fare)}`;
+    element.textContent = fare
+      ? `${prefix ? `${prefix} ` : ""}KSH ${new Intl.NumberFormat("en-KE").format(fare)}`
+      : "Contact for quote";
   });
 }
 
